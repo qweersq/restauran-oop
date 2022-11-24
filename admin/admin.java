@@ -139,8 +139,9 @@ public class admin {
         System.out.println("Appetizer: ");
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i).getCategory().equals("Appetizer")) {
+                
                 System.out.printf("| %-2d | %-14s | %-15.3f | %-17s |%n", i + 1, foods.get(i).getName(),
-                        foods.get(i).getPrice(), foods.get(i).getCategory());
+                        foods.get(i).getPrice(), foods.get(i).category());
             }
         }
         System.out.println("+-----------------------------------------------------------+");
@@ -150,7 +151,7 @@ public class admin {
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i).getCategory().equals("Main Course")) {
                 System.out.printf("| %-2d | %-14s | %-15.3f | %-17s |%n", i + 1, foods.get(i).getName(),
-                        foods.get(i).getPrice(), foods.get(i).getCategory());
+                        foods.get(i).getPrice(), foods.get(i).category());
             }
         }
 
@@ -160,7 +161,7 @@ public class admin {
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i).getCategory().equals("Dessert")) {
                 System.out.printf("| %-2d | %-14s | %-15.3f | %-17s |%n", i + 1, foods.get(i).getName(),
-                        foods.get(i).getPrice(), foods.get(i).getCategory());
+                        foods.get(i).getPrice(), foods.get(i).category());
             }
         }
         System.out.println("+===========================================================+");
@@ -353,15 +354,27 @@ public class admin {
     }
 
     public static void addDrink() {
+        int cat;
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter drink name: ");
         String name = sc.next();
         System.out.print("Enter drink price: ");
         double price = sc.nextDouble();
-        System.out.print("Enter drink category: ");
-        String category = sc.next();
-        drinks.add(new Drink(name, price, 0, category));
-        System.out.println("Drink added successfully!");
+        System.out.println("\n1. Hot");
+        System.out.println("2. Cold");
+        System.out.print("Select food category: ");
+
+        cat = sc.nextInt();
+        switch (cat) {
+            case 1:
+                drinks.add(new Drink.Hot(name, price, 0, "Hot"));
+                break;
+            case 2:
+                drinks.add(new Drink.Cold(name, price, 0, "Cold"));
+                break;
+
+        }
+        System.out.println("\n\n Drink added successfully!");
     }
 
     public static void readDrink() {
@@ -380,7 +393,7 @@ public class admin {
                 for (int i = 0; i < drinks.size(); i++) {
                     if (drinks.get(i).getCategory().equals("Hot")) {
                         System.out.printf("| %-2d | %-14s | %-15.3f | %-17s |%n", i + 1, drinks.get(i).getName(),
-                                drinks.get(i).getPrice(), drinks.get(i).getCategory());
+                                drinks.get(i).getPrice(), drinks.get(i).category());
                     }
                 }
                 System.out.println("+===========================================================+");
@@ -393,7 +406,7 @@ public class admin {
                 for (int i = 0; i < drinks.size(); i++) {
                     if (drinks.get(i).getCategory().equals("Cold")) {
                         System.out.printf("| %-2d | %-14s | %-15.3f | %-17s |%n", i + 1, drinks.get(i).getName(),
-                                drinks.get(i).getPrice(), drinks.get(i).getCategory());
+                                drinks.get(i).getPrice(), drinks.get(i).category());
                     }
                 }
                 System.out.println("+===========================================================+");
@@ -430,7 +443,8 @@ public class admin {
                 String name = sc.next();
                 System.out.print("Enter new drink price: ");
                 double price = sc.nextDouble();
-                drinks.set(id - 1, new Drink(name, price, 0, "Hot"));
+                drinks.get(id - 1).setName(name);
+                drinks.get(id - 1).setPrice(price);
                 System.out.println("Drink updated successfully!");
                 break;
             case 2:
@@ -451,7 +465,8 @@ public class admin {
                 String name1 = sc.next();
                 System.out.print("Enter new drink price: ");
                 double price1 = sc.nextDouble();
-                drinks.set(id1 - 1, new Drink(name1, price1, 0, "Cold"));
+                foods.get(id1 - 1).setName(name1);
+                foods.get(id1 - 1).setPrice(price1);
                 System.out.println("Drink updated successfully!");
                 break;
             default:

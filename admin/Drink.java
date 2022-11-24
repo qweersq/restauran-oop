@@ -1,6 +1,6 @@
 package admin;
 
-public class Drink {
+abstract class Drink {
     // Drink name
     private String name;
     // Drink price
@@ -17,6 +17,9 @@ public class Drink {
         this.quantity = quantity;
         this.category = category;
     }
+
+    // abstract method category
+    abstract String category();
 
     // Getters and setters 
     public String getName() {
@@ -72,12 +75,22 @@ public class Drink {
         public Hot(String name, double price, int quantity, String category) {
             super(name, price, quantity, category);
         }
+
+        @Override
+        String category() {
+            return "Hot";
+        }
     }
 
     public static class Cold extends Drink {
 
         public Cold(String name, double price, int quantity, String category) {
             super(name, price, quantity, category);
+        }
+
+        @Override
+        String category() {
+            return "Cold";
         }
     }
 
